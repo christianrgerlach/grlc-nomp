@@ -55,15 +55,18 @@ function buildChartData(){
     for (var pool in pools){
         poolWorkerData.push({
             key: pool,
-            values: pools[pool].workers
+            values: pools[pool].workers,
+            color : "#8c564b"
         });
         poolHashrateData.push({
             key: pool,
-            values: pools[pool].hashrate
+            values: pools[pool].hashrate,
+            color : "#8c564b"
         });
         poolBlockData.push({
             key: pool,
-            values: pools[pool].blocks
+            values: pools[pool].blocks,
+            color : "#8c564b"
         })
     }
 }

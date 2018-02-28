@@ -178,141 +178,46 @@
     #coinInfoClose:hover{
         color: #50f0e3;
     }
-</style>
 
-<div id="holder">
-
-    <div id="menu">
-
-        {{? (function(){
-                if (!it.portalConfig.switching) return false;
-                for (var p in it.portalConfig.switching){
-                    if (it.portalConfig.switching[p].enabled)
-                        return true;
-                }
-                return false;
-            })()
-        }}
-        <div class="menuHeader">Coin-Switching Ports</div>
-        {{?}}
-
-        <div class="menuList">
-        {{ for (var p in it.portalConfig.switching){
-            if (!it.portalConfig.switching[p].enabled) continue;
-            var info = {
-                algo: p,
-                ports: {},
-                host: it.portalConfig.website.stratumHost
-            };
-            info.ports[it.portalConfig.switching[p].port] = {diff: it.portalConfig.switching[p].diff};
-            info = JSON.stringify(info).replace(/"/g, '&quot;');
-        }}
-            <a href="#" class="poolOption" data-info="{{=info}}">{{=p}}</a>
-        {{ } }}
-        </div>
-
-        <div class="menuHeader">Coins</div>
-        <div class="menuList" id="coinList">
-            {{ for(var pool in it.poolsConfigs) {
-                var info = JSON.stringify({
-                    coin: it.poolsConfigs[pool].coin,
-                    algo: it.poolsConfigs[pool].coin.algorithm,
-                    ports: it.poolsConfigs[pool].ports,
-                    host: it.portalConfig.website.stratumHost
-                }).replace(/"/g, '&quot;');
-            }}
-            <a href="#" class="poolOption" data-info="{{=info}}">{{=pool}}</a>
-            {{ } }}
-        </div>
-    </div>
-
-    <div id="main">
-        <a href="#" class="miningOption" id="nompAppDownload">
-            <div class="miningOptionNum">1.</div>
-            <div class="miningOptionInstructions">
-                <div>Download NOMP App</div>
-                <div>Our preconfigured app makes mining that easy</div>
-            </div>
-        </a>
-        <div id="orHolder">
-            <div id="orLine"></div>
-            <div id="orText">or</div>
-        </div>
-        <a href="#" class="miningOption" id="coinGlowTrigger">
-            <div class="miningOptionNum">2.</div>
-            <div class="miningOptionInstructions">
-                <div>Select a coin for connection details</div>
-                <div>Configurations for each coin are available for advanced miners</div>
-            </div>
-        </a>
-    </div>
-</div>
-
-<a href="#" id="coinInfoBackground" class="hidden"></a>
-
-<div id="coinInfo" class="hidden">
-    <a href="#" id="coinInfoClose">×</a>
-    <div><span class="coinInfoName"></span> Configuration:</div>
-    <div id="coinInfoRows">
-        <div id="coinInfoRowKeys">
-            <div>Username:</div>
-            <div>Password:</div>
-        </div>
-        <div id="coinInfoRowValues">
-            <div id="coinInfoUsername"></div>
-            <div>anything</div>
-        </div>
-    </div>
-</div>
-
-<script>
-
-    function showCoinConfig(info){
-
-        var htmlKeys = '<div class="coinInfoData">Algorithm:</div>';
-        var htmlValues = '<div class="coinInfoData">' + info.algo + '</div>';
-
-        for (var port in info.ports){
-            htmlKeys += '<div class="coinInfoData">URL <span class="coinInfoSubtle">(difficulty ' + info.ports[port].diff + ')</span>:</div>';
-            htmlValues += '<div class="coinInfoData">stratum+tcp://' + info.host + ':' + port + '</div>';
-        }
-
-        if (info.coin)
-            $('#coinInfoUsername').text('your ' + info.coin.name + ' wallet address');
-        else
-            $('#coinInfoUsername').text('your public key');
-        $('.coinInfoData').remove();
-        $('#coinInfoRowKeys').append(htmlKeys);
-        $('#coinInfoRowValues').append(htmlValues);
+    .get_zip {
+        background-color: #3b0708;
+        
     }
 
-    $('#coinGlowTrigger').click(function(event){
-        event.preventDefault();
-        $('.menuList').addClass('glow');
-        setTimeout(function(){
-            $('.menuList').removeClass('glow');
-        }, 200);
-        return false;
-    });
+    #get_zip_div {
+        letter-spacing: : 1em !important;
+        background-color: black;
+        
+    }
 
-    $('.poolOption').click(function(event){
-        event.preventDefault();
-        showCoinConfig($(this).data('info'));
-        $('#coinInfoBackground,#coinInfo').removeClass('hidden');
-        $('#coinInfoBackground').css('opacity', 0.7);
-        return false;
-    });
+    .hidden {
+        visibility: hidden;
+    }
 
-    $('#coinInfoBackground,#coinInfoClose').click(function(event){
-        event.preventDefault();
-        $('#coinInfoBackground,#coinInfo').addClass('hidden');
-        $('#coinInfoBackground').css('opacity', 0.0);
-        return false;
-    });
 
-    $('#nompAppDownload').click(function(event){
-        event.preventDefault();
-        alert('NOMP App development still in progress...');
-        return false;
-    });
-</script>
+</style>
+
+<div class='get_zip_div'>
+    Generate a miner!
+    <br>
+    <select class='get_zip' id='select_method'>
+        <option value='select'>Select Method</option>
+        <option value='gpu'>GPU</option>
+        <option value='cpu'>CPU</option>
+    </select>
+    <select class='get_zip hidden' id='select_gpu_make'>
+        <option value='select'>Select Card Make</option>
+        <option value='nvidia'>NVidia</option>
+        <option value='amd'>AMD</option>
+    </select>
+    <select class='get_zip hidden' id='select_cuda_ver'>
+        <option value='select'>Select CUDA Version</option>
+        <option value='9&+'>9 and up</option>
+        <option value='8&-'>8 and lower</option>
+    </select>
+    <input type='text' class='get_zip hidden' id='input_wallet' value='Enter GRLC Address'></input>
+    <button class='get_zip hidden' id='submit'>Download Miner</button>
+    <br>
+    <a class='hidden' id='cuda_info' href='https://google.com'>Determine which CUDA version you have</a>
+</div>
+
