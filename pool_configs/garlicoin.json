@@ -2,14 +2,14 @@
     "enabled": true,
     "coin": "garlicoin.json",
 
-    "address": "mvtv43LtsQSeyCaBBb8xRj5ZpNt75zDX21",
+    "address": "GRT9UQLwisFKfZLwp5MBnNo45zLfQWqFcu",
 
     "rewardRecipients": {
         "mvtv43LtsQSeyCaBBb8xRj5ZpNt75zDX21": 5
     },
 
     "paymentProcessing": {
-        "enabled": true,
+        "enabled": false,
         "paymentInterval": 20,
         "minimumPayment": 0.1,
         "daemon": {
